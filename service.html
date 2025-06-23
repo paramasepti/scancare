@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DentCare - Dental Clinic Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/twentytwenty/twentytwenty.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light ps-5 pe-0 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                </div>
+            </div>
+            <div class="col-md-6 text-center text-lg-end">
+                <div class="position-relative d-inline-flex align-items-center bg-primary text-white top-shape px-5">
+                    <div class="me-3 pe-3 border-end py-2">
+                        <p class="m-0"><i class="fa fa-envelope-open me-2"></i>scancare@gmail.com</p>
+                    </div>
+                    <div class="py-2">
+                        <p class="m-0"><i class="fa fa-phone-alt me-2"></i>(0274) 8767989</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
+        <a href="index.html" class="navbar-brand p-0 d-flex align-items-center">
+    <img src="img/logo.PNG" alt="Scancare Logo" style="height: 80px; margin-right: 8px;">
+    <h1 class="m-0 text-primary">Scancare</h1>
+</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="about.html" class="nav-item nav-link">Artikel</a>
+                <a href="service.html" class="nav-item nav-link active">Produk</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Layanan</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="price.html" class="dropdown-item">Skincheck</a>
+                        <a href="team.html" class="dropdown-item">Rekomendasi</a>
+                        <a href="testimonial.html" class="dropdown-item">Panduan</a>
+                        <a href="appointment.html" class="dropdown-item">Tanya Dokter</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item nav-link">Kontak</a>
+            </div>
+            <button type="button" class="btn text-dark" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
+            <a href="login.html" class="btn btn-primary py-2 px-4 ms-3">Login</a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+
+    <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 hero-header mb-5">
+        <div class="row py-3">
+            <div class="col-12 text-center">
+                <h1 class="display-3 text-white animated zoomIn">Rekomendasi Produk Skincare</h1>                
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+
+    <!-- Menu Start -->
+    <section id="menu" class="menu section">
+
+      <div class="container">
+
+        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#menu-breakfast">
+              <h4>Cleanser</h4>
+            </a><!-- End tab nav item -->
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-lunch">
+              <h4>Moisturizer</h4>
+            </a>
+          </li><!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-dinner">
+              <h4>Face serum</h4>
+            </a>
+          </li><!-- End tab nav item -->
+
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-snacks">
+              <h4>Sunscreen</h4>
+            </a>
+          </li><!-- End tab nav item -->
+
+        </ul>
+
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="tab-pane fade active show" id="menu-breakfast">
+
+            <div class="tab-header text-center">
+              <p>Pilihan</p>
+              <h3>Cleanser</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser1.JPG" class="glightbox"><img src="img/cleanser1.png" class="menu-img img-fluid" alt=""></a>
+                <h4>EMINA</h4>
+                <p class="ingredients">
+                  Made-Calm & Purify Low pH Micellar Water
+                </p>
+                <p class="price">
+                  Rp35.000-Rp53.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser2.JPG" class="glightbox"><img src="img/cleanser2.png" class="menu-img img-fluid" alt=""></a>
+                <h4>BIO BEAUTY LAB</h4>
+                <p class="ingredients">
+                  Luxurious Relaxing Cleansing Oil
+                </p>
+                <p class="price">
+                  Rp169.563
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser3.JPG" class="glightbox"><img src="img/cleanser3.png" class="menu-img img-fluid" alt=""></a>
+                <h4>TULUS</h4>
+                <p class="ingredients">
+                  Disney Balanced Gel Cleanser
+                </p>
+                <p class="price">
+                  Rp329.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser4.JPG" class="glightbox"><img src="img/cleanser4.png" class="menu-img img-fluid" alt=""></a>
+                <h4>FACERINNA</h4>
+                <p class="ingredients">
+                  Salicylic Acid Acne Gel Cleanser
+                </p>
+                <p class="price">
+                  Rp49.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser5.JPG" class="glightbox"><img src="img/cleanser5.png" class="menu-img img-fluid" alt=""></a>
+                <h4>ANUA</h4>
+                <p class="ingredients">
+                  Heartleaf Succinic Moisture Cleansing
+                </p>
+                <p class="price">
+                  Rp208.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dcleanser6.JPG" class="glightbox"><img src="img/cleanser6.png" class="menu-img img-fluid" alt=""></a>
+                <h4>P.CALM</h4>
+                <p class="ingredients">
+                  P.CALM Underpore Holy Basil Cleansing Oil
+                </p>
+                <p class="price">
+                  Rp260.000
+                </p>
+              </div><!-- Menu Item -->
+
+            </div>
+          </div><!-- End Starter Menu Content -->
+
+          <div class="tab-pane fade" id="menu-lunch">
+
+            <div class="tab-header text-center">
+              <p>Pilihan</p>
+              <h3>Moisturizer</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist1.JPG" class="glightbox"><img src="img/moist1.png" class="menu-img img-fluid" alt=""></a>
+                <h4>FACETOLOGY</h4>
+                <p class="ingredients">
+                  Triple Care Acne Calm Moisturizer
+                </p>
+                <p class="price">
+                  Rp76.900
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist2.JPG" class="glightbox"><img src="img/moist2.png" class="menu-img img-fluid" alt=""></a>
+                <h4>NEUTROGENA</h4>
+                <p class="ingredients">
+                  Visible Repair Regenerating Cream
+                </p>
+                <p class="price">
+                  Rp239.200
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist3.JPG" class="glightbox"><img src="img/moist3.png" class="menu-img img-fluid" alt=""></a>
+                <h4>EMINA</h4>
+                <p class="ingredients">
+                  Water Barrier Balancing Gel
+                </p>
+                <p class="price">
+                  Rp42.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist4.JPG" class="glightbox"><img src="img/moist4.png" class="menu-img img-fluid" alt=""></a>
+                <h4>WARDAH</h4>
+                <p class="ingredients">
+                  C-Defense Vitamin C Allantoin Face Mist
+                </p>
+                <p class="price">
+                  Rp41.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist5.JPG" class="glightbox"><img src="img/moist5.png" class="menu-img img-fluid" alt=""></a>
+                <h4>BIO BEAUTY LAB</h4>
+                <p class="ingredients">
+                  Luxurious Soft Moisturizer
+                </p>
+                <p class="price">
+                  Rp182.700
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dmoist6.JPG" class="glightbox"><img src="img/moist6.png" class="menu-img img-fluid" alt=""></a>
+                <h4>SULWHASOO</h4>
+                <p class="ingredients">
+                  Concentrated Ginseng Rejuvenating Emulsion
+                </p>
+                <p class="price">
+                  Rp1.550.000
+                </p>
+              </div><!-- Menu Item -->
+
+            </div>
+          </div><!-- End Breakfast Menu Content -->
+
+          <div class="tab-pane fade" id="menu-dinner">
+
+            <div class="tab-header text-center">
+              <p>Pilihan </p>
+              <h3>Face Serum</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum1.JPG" class="glightbox"><img src="img/serum1.png" class="menu-img img-fluid" alt=""></a>
+                <h4>WHITELAB</h4>
+                <p class="ingredients">
+                  17% Intensive Peeling Serum
+                </p>
+                <p class="price">
+                  Rp75.383
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum2.JPG" class="glightbox"><img src="img/serum2.png" class="menu-img img-fluid" alt=""></a>
+                <h4>BEAUTY OF JOSEON</h4>
+                <p class="ingredients">
+                  Ginseng Skin Barrier Serum
+                </p>
+                <p class="price">
+                  Rp157.520
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum3.JPG" class="glightbox"><img src="img/serum3.png" class="menu-img img-fluid" alt=""></a>
+                <h4>WARDAH</h4>
+                <p class="ingredients">
+                  Lift Regenerating Serum
+                </p>
+                <p class="price">
+                  Rp249.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum4.JPG" class="glightbox"><img src="img/serum4.png" class="menu-img img-fluid" alt=""></a>
+                <h4>ANUA</h4>
+                <p class="ingredients">
+                  Niacinamide 10% + TXA 3% Serum
+                </p>
+                <p class="price">
+                  Rp179.000-Rp259.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum5.JPG" class="glightbox"><img src="img/serum5.png" class="menu-img img-fluid" alt=""></a>
+                <h4>INNISFREE</h4>
+                <p class="ingredients">
+                  Retinol Green Tea PDRN Ampoule
+                </p>
+                <p class="price">
+                  Rp463.250
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dserum6.JPG" class="glightbox"><img src="img/serum6.png" class="menu-img img-fluid" alt=""></a>
+                <h4>INNISFREE</h4>
+                <p class="ingredients">
+                  Perfect 9 Intensive Serum
+                </p>
+                <p class="price">
+                  Rp626.400
+                </p>
+              </div><!-- Menu Item -->
+
+            </div>
+          </div><!-- End Lunch Menu Content -->
+
+          <div class="tab-pane fade" id="menu-snacks">
+
+            <div class="tab-header text-center">
+              <p>Pilihan</p>
+              <h3>Sunscreen</h3>
+            </div>
+
+            <div class="row gy-5">
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss1.JPG" class="glightbox"><img src="img/ss1.png" class="menu-img img-fluid" alt=""></a>
+                <h4>NIVEA</h4>
+                <p class="ingredients">
+                  Sun Face Serum Protect & Light Feel SPF 50+
+                </p>
+                <p class="price">
+                  Rp86.400
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss2.JPG" class="glightbox"><img src="img/ss2.png" class="menu-img img-fluid" alt=""></a>
+                <h4>SKIN1004</h4>
+                <p class="ingredients">
+                  SKIN1004 Madagascar Centella Tea-Trica
+                </p>
+                <p class="price">
+                  Rp177.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss3.JPG" class="glightbox"><img src="img/ss3.png" class="menu-img img-fluid" alt=""></a>
+                <h4>TAVI</h4>
+                <p class="ingredients">
+                  CICA RES-Q10 AdapTint Sun Shield
+                </p>
+                <p class="price">
+                  Rp112.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss4.JPG" class="glightbox"><img src="img/ss4.png" class="menu-img img-fluid" alt=""></a>
+                <h4>BIORE</h4>
+                <p class="ingredients">
+                  Biore UV Aqua Rich Aqua Protect Lotion
+                </p>
+                <p class="price">
+                  Rp174.000
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss5.JPG" class="glightbox"><img src="img/ss5.png" class="menu-img img-fluid" alt=""></a>
+                <h4>KOSE</h4>
+                <p class="ingredients">
+                  Clear Wellness UV Sunscreen Tone Up
+                </p>
+                <p class="price">
+                  Rp280.800 
+                </p>
+              </div><!-- Menu Item -->
+
+              <div class="col-lg-4 menu-item">
+                <a href="img/dss6.JPG" class="glightbox"><img src="img/ss6.png" class="menu-img img-fluid" alt=""></a>
+                <h4>FACETOLOGY</h4>
+                <p class="ingredients">
+                  Triple Care Sunscreen For Oily Skin SPF 40
+                </p>
+                <p class="price">
+                  Rp97.500
+                </p>
+              </div><!-- Menu Item -->
+
+            </div>
+          </div><!-- End Dinner Menu Content -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Menu Section -->
+    
+
+    <!-- Footer Start -->
+    <footer style="background-color: #071e3d; color: white; padding: 50px 0; font-family: Arial, sans-serif;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+
+    <!-- BRAND & NEWSLETTER -->
+    <div style="flex: 1 1 250px;">
+      <h2 style="color: #00aee0;">ScanCare</h2>
+      <p>ScanCare adalah platform edukasi skincare remaja yang membantu mengenali jenis kulit dan memilih perawatan yang tepat.</p>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="flex: 1 1 200px;">
+      <h3 class="text-white mb-4">Kontak Kami</h3>
+      <p>📍 Jl. Dr. Wahidin Sudirohusodo No.44 E, Klitren, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55224</p>
+      <p>📧 scancare@gmail.com</p>
+      <p>📞 (0274) 8767989</p>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Follow Us</h3>
+                    <div class="d-flex">
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+                    </div>
+                </div>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div style="text-align: center; margin-top: 40px; border-top: 1px solid #ffffff33; padding-top: 20px; font-size: 14px;">
+    © 2025 <strong>ScanCare</strong>. All Rights Reserved. | <a href="#" style="color: #00aee0; text-decoration: none;">Privacy Policy</a>
+  </div>
+</footer>
+
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="lib/twentytwenty/jquery.event.move.js"></script>
+    <script src="lib/twentytwenty/jquery.twentytwenty.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <style>
+  .custom-lightbox {
+    position: fixed;
+    z-index: 9999;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(65, 60, 60, 0.8);
+    display: flex; justify-content: center; align-items: center;
+  }
+
+  .custom-lightbox .lightbox-content img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const links = document.querySelectorAll('.glightbox');
+    links.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const overlay = document.createElement('div');
+        overlay.classList.add('custom-lightbox');
+        overlay.innerHTML = `
+          <div class="lightbox-content">
+            <img src="${this.href}" alt="">
+          </div>
+        `;
+        document.body.appendChild(overlay);
+
+        overlay.addEventListener('click', function (event) {
+          if (event.target === overlay) {
+            overlay.remove();
+          }
+        });
+      });
+    });
+  });
+</script>
+
+</body>
+
+</html>

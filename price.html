@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <title>SkinCheck - Website Analisis Kulit</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Analisis Kulit, Skin Check, AI" name="keywords">
+    <meta content="Website untuk menganalisis tipe kulit menggunakan AI" name="description">
+
+    <!-- Favicon -->
+    <link href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/twentytwenty/twentytwenty.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color:#06A3DA;
+            --secondary-color: #F57E57;
+            --success-color: #16a34a;
+            --warning-color: #f59e0b;
+            --danger-color: #dc2626;
+            --info-color: #0891b2;
+            --dark-color: #091E3E;
+            --light-color: #EEF9FF;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+        }
+
+        .font-jost {
+            font-family: 'Jost', sans-serif;
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .spinner-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+
+        .spinner-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .spinner-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .spinner-dot:nth-child(1) {
+            background-color: var(--primary-color);
+        }
+
+        .spinner-dot:nth-child(2) {
+            background-color: var(--dark-color);
+            animation-delay: 0.1s;
+        }
+
+        .spinner-dot:nth-child(3) {
+            background-color: #9ca3af;
+            animation-delay: 0.2s;
+        }
+
+        .spinner-text {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .navbar-light .navbar-nav .nav-link {
+    font-family: 'Jost', sans-serif;
+    padding: 35px 15px;
+    font-size: 18px;
+    color: var(--dark);
+    outline: none;
+    transition: .5s;
+}
+
+.sticky-top.navbar-light .navbar-nav .nav-link {
+    padding: 20px 15px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--primary);
+}
+
+        @keyframes pulse {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        .upload-area {
+            height: 250px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
+        }
+
+        .upload-area.has-image {
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .camera-icon {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 4px solid #dbeafe;
+            border-radius: 50%;
+            padding: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .analysis-results {
+            display: none;
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        .analysis-results.show {
+            display: block;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .skin-type-badge {
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .skin-normal { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .skin-dry { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .skin-oily { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .skin-combination { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+        .skin-sensitive { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+
+        .confidence-bar {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+
+        .recommendation-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .ingredient-tag {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .avoid-tag {
+            background: var(--danger-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+        }
+
+        .feature-check {
+            color: var(--primary-color);
+        }
+
+     .top-shape {
+    position: relative;
+}
+
+/* Hapus atau nonaktifkan segitiga */
+.top-shape::before {
+    content: none;
+}
+
+
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-step.active {
+            opacity: 1;
+        }
+
+        .progress-step.completed {
+            opacity: 1;
+            color: var(--success-color);
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+
+        .step-icon.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step-icon.completed {
+            background: var(--success-color);
+            color: white;
+        }
+
+        @media (max-width: 991.98px) {
+    .navbar-light .navbar-nav .nav-link,
+    .sticky-top.navbar-light .navbar-nav .nav-link {
+        padding: 10px 0;
+    }
+}
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(9, 30, 62, .85);
+    z-index: 1;
+}
+
+@media (max-width: 576px) {
+    .carousel-caption h5 {
+        font-size: 14px;
+        font-weight: 500 !important;
+    }
+
+    .carousel-caption h1 {
+        font-size: 30px;
+        font-weight: 600 !important;
+    }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 3rem;
+    height: 3rem;
+}
+
+@media (min-width: 991.98px) {
+    .banner {
+        position: relative;
+        margin-top: -90px;
+        z-index: 1;
+    }
+}
+.hero-header {
+    background: linear-gradient(rgba(86, 103, 129, 0.85), rgba(86, 103, 129, 0.85)), url(../img/produkjudul.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.bg-appointment {
+    background: linear-gradient(rgba(9, 30, 62, .85), rgba(9, 30, 62, .85)), url(../img/carousel-1.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.appointment-form {
+    background: rgba(6, 163, 218, .7);
+}
+.menu .nav-tabs {
+  border: 0;
+}
+
+.menu .nav-link {
+  background-color: var(--background-color);
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  margin: 0 15px;
+  padding: 10px 5px;
+  transition: 0.3s;
+  border-radius: 0;
+  cursor: pointer;
+  height: 100%;
+  border: 0;
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+}
+
+@media (max-width: 575px) {
+  .menu .nav-link {
+    margin: 0 10px;
+    padding: 10px 0;
+  }
+}
+
+.menu .nav-link i {
+  padding-right: 15px;
+  font-size: 48px;
+}
+
+.menu .nav-link h4 {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  font-family: var(--default-font);
+}
+
+@media (max-width: 575px) {
+  .menu .nav-link h4 {
+    font-size: 16px;
+  }
+}
+
+.menu .nav-link:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.menu .nav-link.active {
+  background-color: var(--background-color);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.menu .tab-content .tab-header {
+  padding: 30px 0;
+}
+
+.menu .tab-content .tab-header p {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  margin-bottom: 0;
+}
+
+.menu .tab-content .tab-header h3 {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.menu .tab-content .menu-item {
+  text-align-last: center;
+}
+
+.menu .tab-content .menu-item .menu-img {
+  padding: 0 60px;
+  margin-bottom: 15px;
+}
+
+.menu .tab-content .menu-item h4 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  font-family: var(--default-font);
+}
+
+.menu .tab-content .menu-item .ingredients {
+  font-family: var(--nav-font);
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  margin-bottom: 5px;
+}
+
+.menu .tab-content .menu-item .price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.menu .nav-tabs {
+  border-bottom: none;
+  justify-content: center;
+}
+
+.menu .nav-link {
+  position: relative;
+  color: #091E3E;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 10px 15px;
+  border: none;
+  background-color: transparent;
+  transition: color 0.3s;
+}
+
+.menu .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0f0096; /* warna underline */
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.menu .nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.service-item img,
+.service-item .bg-light,
+.service-item .bg-light h5,
+.team-item .team-text {
+    transition: .5s;
+}
+
+.service-item:hover img {
+    transform: scale(1.15);
+}
+
+.team-item .team-text::after,
+.service-item .bg-light::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    border-radius:100px / 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .7);
+    opacity: 0;
+    transition: .5s;
+    z-index: -1;
+}
+
+.team-item:hover .team-text::after,
+.service-item:hover .bg-light::after {
+    opacity: 1;
+}
+
+.bg-offer {
+    background:url(../img/carousel-1.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.offer-text {
+    background: rgba(6, 163, 218, .85);
+}
+
+.price-carousel .owl-nav {
+    position: absolute;
+    width: calc(100% + 45px);
+    height: 45px;
+    top: calc(50% - 22.5px);
+    left: -22.5px;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0;
+    transition: .5s;
+}
+
+.price-carousel:hover .owl-nav {
+    opacity: 1;
+}
+
+.price-carousel .owl-nav .owl-prev,
+.price-carousel .owl-nav .owl-next {
+    position: relative;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: var(--primary);
+    border-radius: 2px;
+    font-size: 22px;
+    transition: .5s;
+}
+
+.price-carousel .owl-nav .owl-prev:hover,
+.price-carousel .owl-nav .owl-next:hover {
+    background: var(--secondary);
+}
+
+.bg-testimonial {
+    background: url(../img/carousel-2.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.testimonial-carousel {
+    background: rgba(6, 163, 218, .85);
+}
+
+.testimonial-carousel .owl-nav {
+    position: absolute;
+    width: calc(100% + 46px);
+    height: 46px;
+    top: calc(50% - 23px);
+    left: -23px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.testimonial-carousel .owl-nav .owl-prev,
+.testimonial-carousel .owl-nav .owl-next {
+    position: relative;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    background: var(--primary);
+    border-radius: 2px;
+    font-size: 22px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-nav .owl-prev:hover,
+.testimonial-carousel .owl-nav .owl-next:hover {
+    background: var(--secondary);
+}
+
+.testimonial-carousel .owl-item img {
+    width: 120px;
+    height: 120px;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Loading Spinner -->
+    <div id="spinner" class="spinner-overlay">
+        <div class="spinner-dots">
+            <div class="spinner-dot"></div>
+            <div class="spinner-dot"></div>
+            <div class="spinner-dot"></div>
+        </div>
+        <div class="spinner-text">Menganalisis kulit Anda...</div>
+        <div class="mt-3">
+            <div class="progress-step" id="step1">
+                <div class="step-icon">1</div>
+                <span>Memproses gambar...</span>
+            </div>
+            <div class="progress-step" id="step2">
+                <div class="step-icon">2</div>
+                <span>Menganalisis tekstur kulit...</span>
+            </div>
+            <div class="progress-step" id="step3">
+                <div class="step-icon">3</div>
+                <span>Menentukan tipe kulit...</span>
+            </div>
+            <div class="progress-step" id="step4">
+                <div class="step-icon">4</div>
+                <span>Menyiapkan rekomendasi...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light ps-5 pe-0 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center">
+                </div>
+            </div>
+            <div class="col-md-6 text-center text-lg-end">
+                <div class="position-relative d-inline-flex align-items-center bg-primary text-white top-shape px-5">
+                    <div class="me-3 pe-3 border-end py-2">
+                        <p class="m-0"><i class="fa fa-envelope-open me-2"></i>scancare@gmail.com</p>
+                    </div>
+                    <div class="py-2">
+                        <p class="m-0"><i class="fa fa-phone-alt me-2"></i>(0274) 8767989</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+  <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm px-5 py-3 py-lg-0">
+        <a href="index.html" class="navbar-brand p-0 d-flex align-items-center">
+    <img src="img/logo.PNG" alt="Scancare Logo" style="height: 80px; margin-right: 8px;">
+    <h1 class="m-0 text-primary">Scancare</h1>
+</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="index.html" class="nav-item nav-link">Home</a>
+                <a href="about.html" class="nav-item nav-link">Artikel</a>
+                <a href="service.html" class="nav-item nav-link">Produk</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Layanan</a>
+                    <div class="dropdown-menu m-0">
+                        <a href="price.html" class="dropdown-item">Skincheck</a>
+                        <a href="team.html" class="dropdown-item">Rekomendasi</a>
+                        <a href="testimonial.html" class="dropdown-item">Panduan</a>
+                        <a href="appointment.html" class="dropdown-item">Tanya Dokter</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="nav-item nav-link">Kontak</a>
+            </div>
+            <button type="button" class="btn text-dark" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
+            <a href="login.html" class="btn btn-primary py-2 px-4 ms-3">Login</a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+       <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        <input type="text" class="form-control bg-transparent border-primary p-3" placeholder="Type search keyword">
+                        <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 hero-header mb-5">
+        <div class="row py-3">
+            <div class="col-12 text-center">
+                <h1 class="display-3 text-white font-jost">Skin Check</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+
+    <!-- Main Content Start -->
+    <div class="container-fluid py-5">
+        <div class="container">
+            <div class="row g-5 align-items-start">
+                <!-- Left Column - Info -->
+                <div class="col-lg-5">
+                    <div class="section-title mb-4">
+                        <h5 class="position-relative d-inline-block text-primary text-uppercase font-jost">ANALISIS KULIT</h5>
+                        <h1 class="display-5 mb-0 font-jost">Ketahui Tipe Kulit Anda dengan Teknologi AI</h1>
+                    </div>
+                    <p class="mb-4">
+                        Dapatkan analisis mendalam tentang kondisi kulit wajah Anda menggunakan teknologi kecerdasan buatan
+                        terdepan. Upload foto selfie Anda dan dapatkan rekomendasi perawatan yang tepat untuk jenis kulit Anda.
+                    </p>
+                    <h5 class="text-uppercase text-primary font-jost mb-2">Konsultasi Gratis</h5>
+                    <a href="appointment.html" class="btn btn-primary py-2 px-4">Konsultasi Sekarang Juga</a>
+
+                </div>
+
+                <!-- Right Column - Upload Section -->
+                <div class="col-lg-7" id="uploadSection">
+                    <!-- Upload Card -->
+                    <div class="card border-0 shadow-lg mb-4">
+                        <div class="position-relative">
+                            <div id="uploadArea" class="upload-area" onclick="document.getElementById('photoInput').click()">
+                                <div id="uploadPlaceholder" class="text-center">
+                                    <i class="fas fa-cloud-upload-alt fa-4x text-primary mb-3"></i>
+                                    <h5 class="text-primary">Klik untuk Upload Foto</h5>
+                                    <p class="text-muted">Pilih foto wajah Anda</p>
+                                </div>
+                                <img id="previewImage" class="preview-image d-none" alt="Preview">
+                            </div>
+                            <div class="camera-icon">
+                                <i class="fas fa-camera fa-2x text-primary"></i>
+                            </div>
+                        </div> 
+                        <div class="card-body text-center pt-5">
+                            <h4 class="font-jost mb-3">Upload Foto Wajah</h4>
+                            <hr class="w-50 mx-auto text-primary mb-4">
+                            
+                            <!-- Features -->
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Teknologi AI Terdepan</span>
+                                        <i class="fas fa-check-circle feature-check"></i>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>Analisis Mendalam</span>
+                                        <i class="fas fa-check-circle feature-check"></i>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Rekomendasi Personal</span>
+                                        <i class="fas fa-check-circle feature-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload Input -->
+                            <input type="file" id="photoInput" accept="image/*" class="d-none" onchange="handleFileSelect(event)">
+                            
+                            <!-- Buttons -->
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary py-2" onclick="document.getElementById('photoInput').click()">
+                                    <i class="fas fa-image me-2"></i>Pilih Foto
+                                </button>
+                                <button id="analyzeBtn" class="btn btn-success py-2 d-none" onclick="analyzeImage()">
+                                    <i class="fas fa-brain me-2"></i>Analisis Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results Section -->
+            <div id="analysisResults" class="analysis-results">
+                <div class="row g-4 mt-4">
+                    <div class="col-12">
+                        <div class="text-center mb-4">
+                            <h2 class="font-jost text-primary">Hasil Analisis Kulit Anda</h2>
+                            <p class="text-muted">Berikut adalah hasil lengkap analisis kulit Anda</p>
+                        </div>
+                    </div>
+
+                    <!-- Main Result Card -->
+                    <div class="col-lg-4">
+                        <div class="card result-card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-check fa-3x text-success mb-3"></i>
+                                <h4 class="font-jost mb-3">Tipe Kulit Anda</h4>
+                                <div id="skinTypeBadge" class="skin-type-badge mb-3">Normal</div>
+                                <div class="mb-3">
+                                    <small class="text-muted">Tingkat Kepercayaan</small>
+                                    <div class="confidence-bar mt-1">
+                                        <div id="confidenceBar" class="confidence-fill bg-success" style="width: 0%"></div>
+                                    </div>
+                                    <small id="confidenceText" class="text-muted">0%</small>
+                                </div>
+                                <p id="skinTypeDescription" class="text-muted small"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Characteristics Card -->
+                    <div class="col-lg-4">
+                        <div class="card result-card h-100">
+                            <div class="card-body">
+                                <h5 class="font-jost mb-3">
+                                    <i class="fas fa-microscope text-primary me-2"></i>
+                                    Karakteristik Kulit
+                                </h5>
+                                <div id="skinCharacteristics">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Ukuran Pori:</span>
+                                        <span id="poreSize" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Produksi Minyak:</span>
+                                        <span id="oilProduction" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Tingkat Sensitivitas:</span>
+                                        <span id="sensitivity" class="fw-bold">-</span>
+                                    </div>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Masalah Umum:</small>
+                                        <div id="commonIssues" class="mt-1"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Tips Card -->
+                    <div class="col-lg-4">
+                        <div class="card result-card h-100">
+                            <div class="card-body">
+                                <h5 class="font-jost mb-3">
+                                    <i class="fas fa-lightbulb text-warning me-2"></i>
+                                    Tips Cepat
+                                </h5>
+                                <div id="quickTips">
+                                    <div class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <small>Gunakan sunscreen setiap hari</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <small>Bersihkan wajah 2x sehari</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        <small>Gunakan pelembab sesuai tipe kulit</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <i class="fas fa-times-circle text-danger me-2"></i>
+                                        <small>Hindari menggosok wajah terlalu keras</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Recommendations -->
+                    <div class="col-12">
+                        <div class="card result-card">
+                            <div class="card-body">
+                                <h4 class="font-jost mb-4">
+                                    <i class="fas fa-spa text-primary me-2"></i>
+                                    Rekomendasi Perawatan Lengkap
+                                </h4>
+                                <div class="row g-4" id="detailedRecommendations">
+                                    <!-- Recommendations will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients Section -->
+                    <div class="col-lg-6">
+                        <div class="card result-card h-100">
+                            <div class="card-body">
+                                <h5 class="font-jost mb-3">
+                                    <i class="fas fa-leaf text-success me-2"></i>
+                                    Bahan yang Direkomendasikan
+                                </h5>
+                                <div id="recommendedIngredients" class="mb-3">
+                                    <!-- Recommended ingredients will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card result-card h-100">
+                            <div class="card-body">
+                                <h5 class="font-jost mb-3">
+                                    <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+                                    Bahan yang Harus Dihindari
+                                </h5>
+                                <div id="avoidIngredients" class="mb-3">
+                                    <!-- Ingredients to avoid will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="col-12 text-center">
+                        <div class="d-flex flex-wrap justify-content-center gap-3">
+                            <button class="btn btn-primary" onclick="downloadResults()">
+                                <i class="fas fa-download me-2"></i>Download Hasil
+                            </button>
+                            <button class="btn btn-secondary" onclick="analyzeAgain()">
+                                <i class="fas fa-redo me-2"></i>Analisis Lagi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content End -->
+
+    <!-- Footer Start -->
+    <footer style="background-color: #071e3d; color: white; padding: 50px 0; font-family: Arial, sans-serif;">
+  <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;">
+
+    <!-- BRAND & NEWSLETTER -->
+    <div style="flex: 1 1 250px;">
+      <h2 style="color: #00aee0;">ScanCare</h2>
+      <p>ScanCare adalah platform edukasi skincare remaja yang membantu mengenali jenis kulit dan memilih perawatan yang tepat.</p>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="flex: 1 1 200px;">
+      <h3 class="text-white mb-4">Kontak Kami</h3>
+      <p>📍 Jl. Dr. Wahidin Sudirohusodo No.44 E, Klitren, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55224</p>
+      <p>📧 scancare@gmail.com</p>
+      <p>📞 (0274) 8767989</p>
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div class="col-lg-3 col-md-6">
+                    <h3 class="text-white mb-4">Follow Us</h3>
+                    <div class="d-flex">
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
+                        <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+                    </div>
+                </div>
+  </div>
+
+  <!-- COPYRIGHT -->
+  <div style="text-align: center; margin-top: 40px; border-top: 1px solid #ffffff33; padding-top: 20px; font-size: 14px;">
+    © 2025 <strong>ScanCare</strong>. All Rights Reserved. | <a href="#" style="color: #00aee0; text-decoration: none;">Privacy Policy</a>
+  </div>
+</footer>
+
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded position-fixed bottom-0 end-0 m-4" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        let selectedFile = null;
+        let isAnalyzing = false;
+        let currentAnalysisResult = null;
+
+        // Skin type data with detailed information
+        const skinTypeData = {
+            'Normal': {
+                class: 'skin-normal',
+                description: 'Kulit seimbang dengan sirkulasi yang baik, pori-pori halus, dan tekstur yang lembut.',
+                characteristics: {
+                    poreSize: 'Kecil-Sedang',
+                    oilProduction: 'Seimbang',
+                    sensitivity: 'Rendah'
+                },
+                commonIssues: ['Jerawat sesekali'],
+                recommendations: [
+                    {
+                        category: 'Pembersih',
+                        title: 'Pembersih Harian Lembut',
+                        description: 'Gunakan pembersih ringan dengan pH seimbang dua kali sehari.',
+                        ingredients: ['Glycerin', 'Ceramides', 'Hyaluronic Acid'],
+                        avoid: ['Sulfates', 'Alcohol', 'Scrub Kasar']
+                    },
+                    {
+                        category: 'Pelembab',
+                        title: 'Pelembab Ringan',
+                        description: 'Aplikasikan pelembab ringan non-comedogenic untuk menjaga hidrasi.',
+                        ingredients: ['Hyaluronic Acid', 'Niacinamide', 'Ceramides'],
+                        avoid: ['Minyak Berat', 'Bahan Comedogenic']
+                    }
+                ]
+            },
+            'Kering': {
+                class: 'skin-dry',
+                description: 'Kulit yang kekurangan kelembaban dan minyak, sering terasa kencang dan kasar.',
+                characteristics: {
+                    poreSize: 'Kecil',
+                    oilProduction: 'Rendah',
+                    sensitivity: 'Sedang-Tinggi'
+                },
+                commonIssues: ['Pengelupasan', 'Kekencangan', 'Garis Halus'],
+                recommendations: [
+                    {
+                        category: 'Pembersih',
+                        title: 'Pembersih Krim',
+                        description: 'Gunakan pembersih krim tanpa busa untuk menghindari hilangnya minyak alami.',
+                        ingredients: ['Ceramides', 'Glycerin', 'Petrolatum'],
+                        avoid: ['Foaming Agents', 'Alcohol', 'Fragrances']
+                    },
+                    {
+                        category: 'Pelembab',
+                        title: 'Pelembab Kaya',
+                        description: 'Aplikasikan pelembab kaya yang oklusif untuk mengunci kelembaban.',
+                        ingredients: ['Shea Butter', 'Ceramides', 'Squalane'],
+                        avoid: ['Alcohol', 'Menthol', 'Fragrances']
+                    }
+                ]
+            },
+            'Berminyak': {
+                class: 'skin-oily',
+                description: 'Kulit dengan kelenjar sebaceous yang terlalu aktif, menghasilkan produksi minyak berlebih.',
+                characteristics: {
+                    poreSize: 'Besar',
+                    oilProduction: 'Tinggi',
+                    sensitivity: 'Rendah-Sedang'
+                },
+                commonIssues: ['Jerawat', 'Komedo', 'Kilap Berlebih'],
+                recommendations: [
+                    {
+                        category: 'Pembersih',
+                        title: 'Pembersih Berbusa',
+                        description: 'Gunakan pembersih berbusa lembut dengan asam salisilat untuk mengontrol minyak.',
+                        ingredients: ['Salicylic Acid', 'Niacinamide', 'Zinc'],
+                        avoid: ['Over-drying Alcohols', 'Scrub Kasar']
+                    },
+                    {
+                        category: 'Pelembab',
+                        title: 'Pelembab Bebas Minyak',
+                        description: 'Aplikasikan pelembab ringan bebas minyak untuk hidrasi tanpa menyumbat pori.',
+                        ingredients: ['Hyaluronic Acid', 'Niacinamide', 'Glycerin'],
+                        avoid: ['Comedogenic Oils', 'Heavy Creams']
+                    }
+                ]
+            },
+            'Kombinasi': {
+                class: 'skin-combination',
+                description: 'Kulit dengan area berminyak dan kering, biasanya T-zone berminyak dan pipi kering.',
+                characteristics: {
+                    poreSize: 'Campuran',
+                    oilProduction: 'Campuran',
+                    sensitivity: 'Sedang'
+                },
+                commonIssues: ['T-zone Berminyak', 'Pipi Kering', 'Tekstur Tidak Rata'],
+                recommendations: [
+                    {
+                        category: 'Pembersih',
+                        title: 'Pembersih Seimbang',
+                        description: 'Gunakan pembersih lembut yang cocok untuk area berminyak dan kering.',
+                        ingredients: ['Glycerin', 'Ceramides', 'Mild Surfactants'],
+                        avoid: ['Harsh Sulfates', 'Alcohol']
+                    },
+                    {
+                        category: 'Perawatan',
+                        title: 'Perawatan Tertarget',
+                        description: 'Gunakan produk berbeda untuk area T-zone dan pipi sesuai kebutuhan.',
+                        ingredients: ['Salicylic Acid', 'Hyaluronic Acid', 'Niacinamide'],
+                        avoid: ['One-size-fits-all Products']
+                    }
+                ]
+            },
+            'Sensitif': {
+                class: 'skin-sensitive',
+                description: 'Kulit yang mudah bereaksi terhadap produk dan faktor lingkungan.',
+                characteristics: {
+                    poreSize: 'Kecil-Sedang',
+                    oilProduction: 'Bervariasi',
+                    sensitivity: 'Tinggi'
+                },
+                commonIssues: ['Kemerahan', 'Iritasi', 'Sensasi Terbakar', 'Perih'],
+                recommendations: [
+                    {
+                        category: 'Pembersih',
+                        title: 'Pembersih Lembut',
+                        description: 'Gunakan pembersih bebas pewangi, hipoalergenik dengan bahan minimal.',
+                        ingredients: ['Ceramides', 'Glycerin', 'Allantoin'],
+                        avoid: ['Fragrances', 'Essential Oils', 'Alcohol', 'Sulfates']
+                    },
+                    {
+                        category: 'Pelembab',
+                        title: 'Pelembab Lembut',
+                        description: 'Aplikasikan pelembab bebas pewangi dengan bahan menenangkan.',
+                        ingredients: ['Ceramides', 'Colloidal Oatmeal', 'Centella Asiatica'],
+                        avoid: ['Fragrances', 'Essential Oils', 'Acids']
+                    }
+                ]
+            }
+        };
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                selectedFile = file;
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const uploadArea = document.getElementById('uploadArea');
+                    const placeholder = document.getElementById('uploadPlaceholder');
+                    const previewImage = document.getElementById('previewImage');
+                    const analyzeBtn = document.getElementById('analyzeBtn');
+                    const analysisResults = document.getElementById('analysisResults');
+                    
+                    // Hide placeholder and show image
+                    placeholder.classList.add('d-none');
+                    previewImage.src = e.target.result;
+                    previewImage.classList.remove('d-none');
+                    uploadArea.classList.add('has-image');
+                    
+                    // Show analyze button
+                    analyzeBtn.classList.remove('d-none');
+                    
+                    // Hide previous results
+                    analysisResults.classList.remove('show');
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Analyze image function with automatic display
+        function analyzeImage() {
+            if (!selectedFile || isAnalyzing) return;
+            
+            isAnalyzing = true;
+            const spinner = document.getElementById('spinner');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            // Show loading with progress steps
+            spinner.style.display = 'flex';
+            analyzeBtn.disabled = true;
+            analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Menganalisis...';
+            
+            // Simulate analysis steps
+            simulateAnalysisSteps();
+            
+            // Simulate analysis (4 seconds total)
+            setTimeout(() => {
+                const skinTypes = ['Normal', 'Kering', 'Berminyak', 'Kombinasi', 'Sensitif'];
+                const randomType = skinTypes[Math.floor(Math.random() * skinTypes.length)];
+                const confidence = Math.floor(Math.random() * 20) + 80; // 80-99%
+                
+                currentAnalysisResult = {
+                    skinType: randomType,
+                    confidence: confidence
+                };
+                
+                // Display all results automatically
+                displayCompleteResults(randomType, confidence);
+                
+                // Hide loading
+                spinner.style.display = 'none';
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<i class="fas fa-brain me-2"></i>Analisis Lagi';
+                
+                isAnalyzing = false;
+                
+                // Scroll to results
+                setTimeout(() => {
+                    document.getElementById('analysisResults').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
+                }, 500);
+            }, 4000);
+        }
+
+        // Simulate analysis progress steps
+        function simulateAnalysisSteps() {
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            
+            steps.forEach((stepId, index) => {
+                setTimeout(() => {
+                    const step = document.getElementById(stepId);
+                    const icon = step.querySelector('.step-icon');
+                    
+                    // Activate current step
+                    step.classList.add('active');
+                    icon.classList.add('active');
+                    
+                    // Complete previous steps
+                    if (index > 0) {
+                        const prevStep = document.getElementById(steps[index - 1]);
+                        const prevIcon = prevStep.querySelector('.step-icon');
+                        prevStep.classList.remove('active');
+                        prevStep.classList.add('completed');
+                        prevIcon.classList.remove('active');
+                        prevIcon.classList.add('completed');
+                        prevIcon.innerHTML = '<i class="fas fa-check"></i>';
+                    }
+                    
+                    // Complete last step
+                    if (index === steps.length - 1) {
+                        setTimeout(() => {
+                            step.classList.remove('active');
+                            step.classList.add('completed');
+                            icon.classList.remove('active');
+                            icon.classList.add('completed');
+                            icon.innerHTML = '<i class="fas fa-check"></i>';
+                        }, 800);
+                    }
+                }, (index + 1) * 800);
+            });
+        }
+
+        // Display complete analysis results
+        function displayCompleteResults(skinType, confidence) {
+            const data = skinTypeData[skinType];
+            const analysisResults = document.getElementById('analysisResults');
+            
+            // Update main result
+            const skinTypeBadge = document.getElementById('skinTypeBadge');
+            const confidenceBar = document.getElementById('confidenceBar');
+            const confidenceText = document.getElementById('confidenceText');
+            const skinTypeDescription = document.getElementById('skinTypeDescription');
+            
+            skinTypeBadge.textContent = skinType;
+            skinTypeBadge.className = `skin-type-badge ${data.class}`;
+            
+            setTimeout(() => {
+                confidenceBar.style.width = confidence + '%';
+            }, 300);
+            confidenceText.textContent = confidence + '%';
+            skinTypeDescription.textContent = data.description;
+            
+            // Update characteristics
+            document.getElementById('poreSize').textContent = data.characteristics.poreSize;
+            document.getElementById('oilProduction').textContent = data.characteristics.oilProduction;
+            document.getElementById('sensitivity').textContent = data.characteristics.sensitivity;
+            
+            // Update common issues
+            const commonIssuesDiv = document.getElementById('commonIssues');
+            commonIssuesDiv.innerHTML = data.commonIssues.map(issue => 
+                `<span class="badge bg-warning text-dark me-1 mb-1">${issue}</span>`
+            ).join('');
+            
+            // Update detailed recommendations
+            const recommendationsDiv = document.getElementById('detailedRecommendations');
+            recommendationsDiv.innerHTML = data.recommendations.map(rec => `
+                <div class="col-md-6">
+                    <div class="recommendation-card p-4 rounded h-100">
+                        <h6 class="font-jost text-primary mb-2">
+                            <i class="fas fa-spa me-2"></i>${rec.category}
+                        </h6>
+                        <h6 class="mb-2">${rec.title}</h6>
+                        <p class="small text-muted mb-3">${rec.description}</p>
+                        <div class="mb-2">
+                            <small class="fw-bold text-success">Bahan Direkomendasikan:</small>
+                            <div class="mt-1">
+                                ${rec.ingredients.map(ing => `<span class="ingredient-tag">${ing}</span>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <small class="fw-bold text-danger">Hindari:</small>
+                            <div class="mt-1">
+                                ${rec.avoid.map(avoid => `<span class="avoid-tag">${avoid}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update ingredients sections
+            const allRecommendedIngredients = [...new Set(data.recommendations.flatMap(rec => rec.ingredients))];
+            const allAvoidIngredients = [...new Set(data.recommendations.flatMap(rec => rec.avoid))];
+            
+            document.getElementById('recommendedIngredients').innerHTML = 
+                allRecommendedIngredients.map(ing => `<span class="ingredient-tag">${ing}</span>`).join('');
+            
+            document.getElementById('avoidIngredients').innerHTML = 
+                allAvoidIngredients.map(avoid => `<span class="avoid-tag">${avoid}</span>`).join('');
+            
+            // Show results with animation
+            analysisResults.classList.add('show');
+        }
+
+        // Additional functions for action buttons
+        function downloadResults() {
+            if (!currentAnalysisResult) return;
+            
+            const resultText = `
+HASIL ANALISIS KULIT SKINCHECK
+==============================
+
+Tipe Kulit: ${currentAnalysisResult.skinType}
+Tingkat Kepercayaan: ${currentAnalysisResult.confidence}%
+
+Deskripsi: ${skinTypeData[currentAnalysisResult.skinType].description}
+
+Karakteristik:
+- Ukuran Pori: ${skinTypeData[currentAnalysisResult.skinType].characteristics.poreSize}
+- Produksi Minyak: ${skinTypeData[currentAnalysisResult.skinType].characteristics.oilProduction}
+- Sensitivitas: ${skinTypeData[currentAnalysisResult.skinType].characteristics.sensitivity}
+
+Masalah Umum: ${skinTypeData[currentAnalysisResult.skinType].commonIssues.join(', ')}
+
+Tanggal Analisis: ${new Date().toLocaleDateString('id-ID')}
+Website: SkinCheck.com
+            `;
+            
+            const blob = new Blob([resultText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `hasil-analisis-kulit-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function shareResults() {
+            if (!currentAnalysisResult) return;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Hasil Analisis Kulit Saya',
+                    text: `Tipe kulit saya adalah ${currentAnalysisResult.skinType} dengan tingkat kepercayaan ${currentAnalysisResult.confidence}%. Cek kulit Anda juga di SkinCheck!`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const text = `Tipe kulit saya adalah ${currentAnalysisResult.skinType} dengan tingkat kepercayaan ${currentAnalysisResult.confidence}%. Cek kulit Anda juga di SkinCheck! ${window.location.href}`;
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Link hasil analisis telah disalin ke clipboard!');
+                });
+            }
+        }
+
+        function consultExpert() {
+            const message = currentAnalysisResult ? 
+                `Halo, saya baru saja melakukan analisis kulit dan hasilnya menunjukkan tipe kulit ${currentAnalysisResult.skinType}. Saya ingin berkonsultasi lebih lanjut.` :
+                'Halo, saya ingin berkonsultasi tentang perawatan kulit.';
+            
+            const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function analyzeAgain() {
+            // Reset form
+            document.getElementById('photoInput').value = '';
+            document.getElementById('uploadPlaceholder').classList.remove('d-none');
+            document.getElementById('previewImage').classList.add('d-none');
+            document.getElementById('uploadArea').classList.remove('has-image');
+            document.getElementById('analyzeBtn').classList.add('d-none');
+            document.getElementById('analysisResults').classList.remove('show');
+            
+            selectedFile = null;
+            currentAnalysisResult = null;
+            
+            // Scroll back to upload section
+            scrollToUpload();
+        }
+
+        // Utility functions
+        function scrollToUpload() {
+            document.getElementById('uploadSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Newsletter form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                alert('Terima kasih! Anda telah berlangganan newsletter kami.');
+                this.reset();
+            }
+        });
+
+        // Show/hide back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.position-fixed.bottom-0.end-0');
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide back to top button initially
+            const backToTop = document.querySelector('.position-fixed.bottom-0.end-0');
+            backToTop.style.display = 'none';
+            
+            // Reset progress steps
+            const steps = ['step1', 'step2', 'step3', 'step4'];
+            steps.forEach(stepId => {
+                const step = document.getElementById(stepId);
+                const icon = step.querySelector('.step-icon');
+                step.classList.remove('active', 'completed');
+                icon.classList.remove('active', 'completed');
+                icon.innerHTML = stepId.slice(-1);
+            });
+        });
+    </script>
+</body>
+
+</html>

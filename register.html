@@ -1,0 +1,110 @@
+<?php
+session_start();
+require 'koneksi.php'; // Pastikan variabelnya bernama $koneksi
+
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email            = trim($_POST['email'] ?? '');
+    $password         = trim($_POST['password'] ?? '');
+    $confirm_password = trim($_POST['confirm_password'] ?? '');
+
+    if ($email === '' || $password === '' || $confirm_password === '') {
+        $error = 'Semua field wajib diisi.';
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = 'Format email tidak valid.';
+    } elseif ($password !== $confirm_password) {
+        $error = 'Password dan konfirmasinya harus sama.';
+    } else {
+        $stmt = $koneksi->prepare("SELECT id FROM users WHERE email = ? LIMIT 1");
+        if (!$stmt) {
+            $error = 'Query error: ' . $koneksi->error;
+        } else {
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows > 0) {
+                $error = 'Email sudah digunakan.';
+            } else {
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $insert = $koneksi->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
+
+                if ($insert) {
+                    $insert->bind_param("ss", $email, $hashed);
+                    if ($insert->execute()) {
+                        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                            echo '<div class="p-4 bg-green-100 text-green-700 rounded">Pendaftaran berhasil. Silakan login.</div>';
+                            exit;
+                        } else {
+                            header("Location: login.php?registered=1");
+                            exit;
+                        }
+                    } else {
+                        $error = 'Gagal menyimpan data.';
+                    }
+                    $insert->close();
+                } else {
+                    $error = 'Query error: ' . $koneksi->error;
+                }
+            }
+            $stmt->close();
+        }
+    }
+}
+
+$isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']);
+?>
+
+<?php if (!$isAjax): ?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - ScanCare</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
+<?php endif; ?>
+
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Buat Akun Baru</h2>
+
+    <?php if ($error): ?>
+      <div class="mb-4 p-3 bg-red-100 text-red-700 rounded"><?= htmlspecialchars($error) ?></div>
+    <?php elseif ($success): ?>
+      <div class="mb-4 p-3 bg-green-100 text-green-700 rounded"><?= htmlspecialchars($success) ?></div>
+    <?php endif; ?>
+
+    <form method="POST" action="register.html" autocomplete="off">
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" name="password" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700">Konfirmasi Password</label>
+        <input type="password" name="confirm_password" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
+      </div>
+
+      <button type="submit" class="w-full bg-indigo-600 text-white p-3 rounded-xl font-semibold hover:bg-indigo-700">
+        Daftar
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Sudah punya akun?
+      <a href="login.html" class="text-indigo-500 hover:underline">Masuk di sini</a>
+    </p>
+
+<?php if (!$isAjax): ?>
+  </div>
+</body>
+</html>
+<?php endif; ?>
